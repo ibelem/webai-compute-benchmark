@@ -21,6 +21,9 @@ export default async function serve(port) {
         corsEmbedderPolicy: "require-corp",
         logFormat: "dev",
         stack: ["lws-log", "lws-cors", "lws-static", "lws-index"],
+        https: true,
+        key: path.join(ROOT_DIR, "key.pem"),
+        cert: path.join(ROOT_DIR, "cert.pem"),
     });
     await verifyStartup(ws, port);
 
@@ -47,7 +50,8 @@ async function verifyStartup(ws, port) {
 }
 
 function main() {
-    const optionDefinitions = [{ name: "port", type: Number, defaultValue: 8080, description: "Set the test-server port, The default value is 8080." }];
+    // const optionDefinitions = [{ name: "port", type: Number, defaultValue: 8080, description: "Set the test-server port, The default value is 8080." }];
+    const optionDefinitions = [{ name: "port", type: Number, defaultValue: 8088, description: "Set the test-server port, The default value is 8088." }];
     const options = commandLineArgs(optionDefinitions);
     serve(options.port);
 }

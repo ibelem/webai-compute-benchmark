@@ -3,6 +3,7 @@ import path from 'path';
 import fetch from 'node-fetch';
 import DownloadCache from '../../shared/download-cache.mjs';
 import AdmZip from 'adm-zip';
+import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // --- Configuration ---
 const MODEL_DIR = './models';
@@ -53,7 +54,8 @@ async function downloadModels() {
         console.log(`URL: ${modelUrl}`);
 
         try {
-            const response = await fetch(modelUrl);
+            // const response = await fetch(modelUrl);
+            const response = await fetch(modelUrl, {agent: new HttpsProxyAgent('http://proxy-ir.corporate.com:911')});
 
             if (!response.ok) {
                 throw new Error(`Failed to fetch: ${response.statusText} (${response.status})`);

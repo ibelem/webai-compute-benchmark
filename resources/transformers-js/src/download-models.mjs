@@ -4,10 +4,18 @@ import fs from 'fs';
 import path from 'path';
 import fetch from 'node-fetch';
 import DownloadCache from '../../shared/download-cache.mjs';
+import { HttpsProxyAgent } from 'https-proxy-agent';
+import { ProxyAgent, setGlobalDispatcher } from 'undici';
 
 const MODEL_DIR = './models';
 env.localModelPath = MODEL_DIR;
 const CACHE_VERSION = 1;
+
+// Configure proxy for undici (used by transformers.js)
+const proxyUrl = 'http://proxy-ir.corporate.com:911';
+const proxyAgent = new ProxyAgent(proxyUrl);
+setGlobalDispatcher(proxyAgent);
+console.log(`Setting proxy to: ${proxyUrl}`);
 
 const MODELS_TO_DOWNLOAD = [
     { 
@@ -146,6 +154,8 @@ async function downloadModels() {
             fs.mkdirSync(kokoroModelPath, { recursive: true });
         }
 
+        const nodeFetchProxyAgent = new HttpsProxyAgent(proxyUrl);
+
         for (const filename of KOKORO_FILES) {
             const cacheKey = `${KOKORO_REPO}-${filename}`;
             if (cache.has(cacheKey)) {
@@ -168,7 +178,8 @@ async function downloadModels() {
 
             console.log(`  Downloading ${filename}...`);
             try {
-                const response = await fetch(modelUrl);
+                // const response = await fetch(modelUrl);
+                const response = await fetch(modelUrl, { agent: nodeFetchProxyAgent });
                 if (!response.ok) {
                     throw new Error(`Failed to fetch ${filename}: ${response.statusText}`);
                 }

@@ -9,7 +9,7 @@
     "private": true,
     "scripts": {
         "dev": "http-server ./dist -p 7005 -c-1 --cors -o",
-        "prebuild": "node src/download-models.mjs",
+        "prebuild": "HTTP_PROXY=http://proxy-ir.corporate.com:911 HTTPS_PROXY=http://proxy-ir.corporate.com:911 node src/download-models.mjs",
         "build": "webpack --config webpack.prod.js",
         "serve": "http-server ./dist -p 7006 -c-1 --cors -o"
     },
@@ -26,6 +26,7 @@
         "webpack-merge": "^6.0.1"
     },
     "devDependencies": {
+        "undici": "^7.2.0",
         "webpack-cli": "^6.0.1"
     }
 }

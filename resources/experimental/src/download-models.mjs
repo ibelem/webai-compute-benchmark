@@ -1,8 +1,14 @@
 import { env, pipeline} from '@huggingface/transformers';
 import fs from 'fs';
+import { ProxyAgent, setGlobalDispatcher } from 'undici';
 
 const MODEL_DIR = './models';
 env.localModelPath = MODEL_DIR;
+
+const proxyUrl = 'http://proxy-ir.corporate.com:911';
+const proxyAgent = new ProxyAgent(proxyUrl);
+setGlobalDispatcher(proxyAgent);
+console.log(`Setting proxy to: ${proxyUrl}`);
 
 const MODELS_TO_DOWNLOAD = [
     { 
