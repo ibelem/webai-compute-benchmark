@@ -14,13 +14,9 @@ manualRun();
 // Workloads and models: https://docs.google.com/spreadsheets/d/1tRzuM34dUpijXcJwHmmK7-JDK6zZHhBPHECvBXEF0n8/edit?usp=sharing
 // Model selection documentation: https://docs.google.com/document/d/1EDyRD5dHxYpONyE_xf_Tb1A3GvNSrLQpp-msCcWNnF0/edit?usp=sharing
 
-// Disable the loading of remote models from the Hugging Face Hub:
-env.localModelPath = '../models';
-env.allowRemoteModels = false;
-env.allowLocalModels = true;
-
-// Set location of .wasm files so the CDN is not used.
-env.backends.onnx.wasm.wasmPaths = '';
+// Load models directly from the Hugging Face Hub (for Vercel deployment).
+env.allowRemoteModels = true;
+env.allowLocalModels = false;
 
 
 // TODO: Model loading time is not currently included in the benchmark. We should

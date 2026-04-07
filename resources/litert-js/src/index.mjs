@@ -43,7 +43,7 @@ class ImageSegmentation {
  constructor(device) {
    this.device = device;
    this.originalImage = new Image();
-   this.MODEL_URL = '../models/mediapipe_selfie-tflite-float/mediapipe_selfie.tflite';
+   this.MODEL_URL = 'https://huggingface.co/webnn/mediapipe_selfie/resolve/main/tflite/mediapipe_selfie.tflite';
    this.INPUT_WIDTH = 256;
    this.INPUT_HEIGHT = 256;
    this.THRESHOLD = 0.99; // Threshold for determining person vs. background
@@ -139,10 +139,10 @@ class ImageClassification {
  constructor(device) {
    this.device = device;
    this.originalImage = new Image();
-   this.MODEL_URL = '../models/mobilenet_v3_small-tflite-float/mobilenet_v3_small.tflite';
+   this.MODEL_URL = 'https://huggingface.co/webnn/mobilenet_v3_small/resolve/main/tflite/mobilenet_v3_small.tflite';
    this.INPUT_WIDTH = 224;
    this.INPUT_HEIGHT = 224;
-   this.LABELS_URL = '../models/mobilenet_v3_small-tflite-float/labels.txt';
+   this.LABELS_URL = 'https://huggingface.co/webnn/mobilenet_v3_small/resolve/main/tflite/labels.txt';
    this.labels = [];
  }
 
@@ -219,7 +219,7 @@ class HandDetection {
   constructor(device) {
     this.device = device;
     this.originalImage = new Image();
-    this.MODEL_URL = '../models/mediapipe_hand-tflite-float/HandLandmarkDetector.tflite';
+    this.MODEL_URL = 'https://huggingface.co/webnn/mediapipe_hand/resolve/main/tflite/HandLandmarkDetector.tflite';
     this.INPUT_WIDTH = 256;
     this.INPUT_HEIGHT = 256;
     this.CONFIDENCE_THRESHOLD = 0.9;

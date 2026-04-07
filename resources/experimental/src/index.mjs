@@ -8,13 +8,9 @@ Paste below into dev console for manual testing:
 manualRun();
 */
 
-// Please ensure that models are self-contained for this benchmark and not loaded remotely from a CDN or the Hugging Face Hub.
-
-env.localModelPath = '../models';
-env.allowRemoteModels = false;
-env.allowLocalModels = true;
-
-env.backends.onnx.wasm.wasmPaths = '';
+// Load models directly from the Hugging Face Hub (for Vercel deployment).
+env.allowRemoteModels = true;
+env.allowLocalModels = false;
 
 /*--------- Example workload: Text2Text generation workload using Xenova/flan-t5-small model ---------*/
 
